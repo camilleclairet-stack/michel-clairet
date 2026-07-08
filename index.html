@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michel Clairet — Private Head Chef, London</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:#F6F2EA; --ivory-2:#EFEAE0; --ink:#1E1E1A; --green:#2E3B2C;
+    --green-2:#3A4A38; --gold:#B08D57; --muted:#55534C; --line:#DDD6C8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',sans-serif; background:var(--ivory); color:var(--ink); font-size:16px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+  .serif { font-family:'Fraunces',serif; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { max-width:1240px; margin:0 auto; padding:0 40px; }
+  .kicker { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
+  .btn { display:inline-block; font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:17px 34px; border-radius:99px; transition:all .35s ease; cursor:pointer; }
+  .btn-solid { background:var(--green); color:var(--ivory); }
+  .btn-solid:hover { background:var(--ink); transform:translateY(-2px); }
+  .btn-line { border:1px solid #B5AD9A; color:var(--ink); }
+  .btn-line:hover { border-color:var(--green); color:var(--green); transform:translateY(-2px); }
+  .btn-ivory { background:var(--ivory); color:var(--green); }
+  .btn-ivory:hover { background:#fff; transform:translateY(-2px); }
+
+  /* reveal animations */
+  .rv { opacity:0; transform:translateY(28px); transition:opacity .9s cubic-bezier(.2,.6,.2,1), transform .9s cubic-bezier(.2,.6,.2,1); }
+  .rv.on { opacity:1; transform:none; }
+  .d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; } .d3 { transition-delay:.3s; } .d4 { transition-delay:.4s; }
+
+  /* nav */
+  nav { position:fixed; top:0; left:0; right:0; z-index:50; background:rgba(246,242,234,.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .nav-in { display:flex; align-items:center; justify-content:space-between; padding:22px 40px; max-width:1240px; margin:0 auto; }
+  .logo { font-family:'Fraunces',serif; font-size:18px; letter-spacing:.5px; }
+  .nav-links { display:flex; gap:32px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+  .nav-links a { transition:color .3s; }
+  .nav-links a:hover { color:var(--green); }
+  .nav-cta { font-size:11px; letter-spacing:2px; text-transform:uppercase; border:1px solid var(--green); color:var(--green); padding:11px 24px; border-radius:99px; transition:all .3s; }
+  .nav-cta:hover { background:var(--green); color:var(--ivory); }
+
+  /* hero */
+  .hero { padding:170px 0 90px; }
+  .hero-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:70px; align-items:center; }
+  h1 { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(40px,5vw,68px); line-height:1.06; margin:26px 0 30px; }
+  h1 em { font-style:italic; color:var(--green); }
+  .hero p { color:var(--muted); max-width:520px; font-size:15px; font-weight:300; }
+  .hero-btns { margin-top:40px; display:flex; gap:14px; flex-wrap:wrap; }
+  .ph { background:linear-gradient(160deg,#DCD5C3,#C9CFC0 55%,#AAB3A0); border-radius:2px; position:relative; overflow:hidden; }
+  .ph::after { content:attr(data-label); position:absolute; bottom:14px; left:16px; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(30,30,26,.45); }
+  .hero-ph { aspect-ratio:4/5; }
+
+  /* stats */
+  .stats { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--ivory-2); }
+  .stats-in { display:grid; grid-template-columns:repeat(4,1fr); }
+  .stat { padding:44px 30px; text-align:center; border-left:1px solid var(--line); }
+  .stat:first-child { border-left:none; }
+  .stat .n { font-family:'Fraunces',serif; font-weight:300; font-size:42px; color:var(--green); }
+  .stat .t { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:6px; }
+
+  /* about dark */
+  .about { background:var(--green); color:#EDE7D8; padding:110px 0; }
+  .about-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:80px; align-items:start; }
+  .about .quote { font-family:'Fraunces',serif; font-weight:300; font-style:italic; font-size:clamp(24px,2.6vw,34px); line-height:1.45; }
+  .about .kicker { color:#A8B39E; }
+  .about h2 { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(30px,3.2vw,44px); line-height:1.15; margin:22px 0 24px; }
+  .about p { color:#C6CDB9; font-size:15px; font-weight:300; max-width:520px; }
+  .miles { margin-top:38px; border-top:1px solid rgba(237,231,216,.18); }
+  .mile { display:flex; justify-content:space-between; gap:20px; padding:16px 0; border-bottom:1px solid rgba(237,231,216,.18); font-size:14px; }
+  .mile b { font-weight:400; color:#EDE7D8; }
+  .mile span { color:#A8B39E; font-size:12px; letter-spacing:1px; white-space:nowrap; }
+  .about .link { display:inline-block; margin-top:34px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ivory); border-bottom:1px solid var(--gold); padding-bottom:6px; transition:color .3s; }
+  .about .link:hover { color:var(--gold); }
+
+  /* sections */
+  section.pad { padding:110px 0; }
+  .sec-head { max-width:640px; margin-bottom:64px; }
+  h2.title { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(32px,3.6vw,48px); line-height:1.12; margin-top:20px; }
+  h2.title em { font-style:italic; color:var(--green); }
+
+  /* services */
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .card { background:#FBF9F4; border:1px solid var(--line); padding:44px 36px; transition:transform .4s ease, box-shadow .4s ease; }
+  .card:hover { transform:translateY(-6px); box-shadow:0 24px 50px -30px rgba(46,59,44,.35); }
+  .card .num { font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:18px; }
+  .card h3 { font-family:'Fraunces',serif; font-weight:400; font-size:24px; margin:16px 0 14px; }
+  .card p { font-size:14px; color:var(--muted); font-weight:300; }
+  .note { margin-top:36px; font-size:13px; color:var(--muted); }
+  .note b { font-weight:500; color:var(--ink); }
+
+  /* cuisines */
+  .cuisines { background:var(--ivory-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .cui-list { border-top:1px solid var(--line); }
+  .cui { display:flex; align-items:baseline; justify-content:space-between; padding:26px 6px; border-bottom:1px solid var(--line); transition:padding .35s ease, background .35s ease; cursor:default; }
+  .cui:hover { background:#F6F2EA; padding-left:22px; }
+  .cui .name { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(26px,3vw,40px); }
+  .cui:hover .name em { color:var(--gold); }
+  .cui .name em { font-style:italic; color:var(--green); transition:color .3s; }
+  .cui .desc { font-size:13px; color:var(--muted); max-width:340px; text-align:right; font-weight:300; }
+
+  /* menus teaser */
+  .menus-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .menu-card { background:#FBF9F4; border:1px solid var(--line); padding:54px 48px; text-align:center; box-shadow:0 30px 60px -40px rgba(46,59,44,.3); }
+  .menu-card .mc-k { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
+  .menu-card h4 { font-family:'Fraunces',serif; font-weight:400; font-size:26px; margin:14px 0 4px; }
+  .menu-card .it { font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:17px; color:var(--ink); margin-top:22px; }
+  .menu-card .sub { font-size:12px; color:var(--muted); margin-top:4px; font-weight:300; }
+  .menu-card .sep { width:34px; height:1px; background:var(--gold); margin:22px auto 0; }
+  .menus-grid p { color:var(--muted); font-size:15px; font-weight:300; margin:22px 0 34px; }
+
+  /* gallery */
+  .gal { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .gal .ph { aspect-ratio:3/4; transition:transform .5s ease; }
+  .gal .ph:nth-child(2) { margin-top:44px; }
+  .gal .ph:hover { transform:scale(1.02); }
+
+  /* testimonial */
+  .testi { background:var(--ivory-2); border-top:1px solid var(--line); text-align:center; }
+  .testi .quote { font-family:'Fraunces',serif; font-weight:300; font-style:italic; font-size:clamp(24px,2.8vw,36px); line-height:1.5; max-width:840px; margin:28px auto 26px; }
+  .testi .who { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+
+  /* cta */
+  .cta { background:var(--green); color:#EDE7D8; text-align:center; padding:120px 0; }
+  .cta h2 { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(34px,4vw,54px); line-height:1.1; margin:20px 0 18px; }
+  .cta h2 em { font-style:italic; color:#C9B58C; }
+  .cta p { color:#C6CDB9; font-size:15px; font-weight:300; max-width:480px; margin:0 auto 40px; }
+  .cta .kicker { color:#A8B39E; }
+
+  footer { padding:54px 0; }
+  .foot { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; font-size:12px; color:var(--muted); letter-spacing:1px; }
+  .foot .logo { font-size:16px; color:var(--ink); }
+
+  @media (max-width:900px) {
+    .wrap { padding:0 22px; }
+    .nav-in { padding:18px 22px; }
+    .nav-links { display:none; }
+    .hero { padding:140px 0 70px; }
+    .hero-grid,.about-grid,.menus-grid { grid-template-columns:1fr; gap:44px; }
+    .stats-in { grid-template-columns:1fr 1fr; }
+    .stat { border-left:none; border-top:1px solid var(--line); }
+    .cards { grid-template-columns:1fr; }
+    .gal { grid-template-columns:1fr; }
+    .gal .ph:nth-child(2) { margin-top:0; }
+    .cui { flex-direction:column; gap:8px; }
+    .cui .desc { text-align:left; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#">Michel Clairet</a>
+    <div class="nav-links">
+      <a href="#">About</a><a href="#">Services</a><a href="#">Menus</a><a href="#">Gallery</a>
+    </div>
+    <a class="nav-cta" href="#">Enquire</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker rv on">Private Head Chef — London</div>
+      <h1 class="rv on d1">Three decades of cuisine, <em>from Georges Blanc to Knightsbridge.</em></h1>
+      <p class="rv on d2">French private head chef with over 30 years' international experience across ultra-high-net-worth households, Michelin-starred restaurants and luxury hotels.</p>
+      <div class="hero-btns rv on d3">
+        <a class="btn btn-solid" href="#">Enquire</a>
+        <a class="btn btn-line" href="#">Discover menus</a>
+      </div>
+    </div>
+    <div class="ph hero-ph rv on d2" data-label="Photo — Portrait"></div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap stats-in">
+    <div class="stat rv"><div class="n">30+</div><div class="t">Years of experience</div></div>
+    <div class="stat rv d1"><div class="n serif">★★★</div><div class="t">Michelin-starred training</div></div>
+    <div class="stat rv d2"><div class="n">5</div><div class="t">Cuisines mastered</div></div>
+    <div class="stat rv d3"><div class="n">100+</div><div class="t">Guests catered per event</div></div>
+  </div>
+</div>
+
+<section class="about">
+  <div class="wrap about-grid">
+    <div class="rv">
+      <div class="quote">“Cooking for a family is the most personal form of hospitality — every menu begins with listening.”</div>
+    </div>
+    <div>
+      <div class="kicker rv">About</div>
+      <h2 class="rv d1">A journey through France's <em>finest kitchens</em> — into London's private households.</h2>
+      <p class="rv d2">Trained in classical French cuisine and pâtisserie, Michel began his career at Georges Blanc, three Michelin stars, before a decade at the Majestic Hotel in Cannes. Since 2008, he has served as private head chef to families in Holland Park, Knightsbridge and Chelsea.</p>
+      <div class="miles rv d3">
+        <div class="mile"><b>Georges Blanc — 3 Michelin stars</b><span>1993 – 1994</span></div>
+        <div class="mile"><b>Majestic Hotel, Cannes</b><span>1995 – 2003</span></div>
+        <div class="mile"><b>Palm Beach Casino, Mayfair</b><span>2007 – 2008</span></div>
+        <div class="mile"><b>UHNW private households, London</b><span>2008 – 2026</span></div>
+      </div>
+      <a class="link rv d4" href="#">Discover his journey</a>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker rv">Services</div>
+      <h2 class="title rv d1">Private service, <em>tailored entirely</em> to your household.</h2>
+    </div>
+    <div class="cards">
+      <div class="card rv">
+        <div class="num">01</div>
+        <h3>Private Chef Service</h3>
+        <p>Full-time or seasonal service within your household — daily menus, provisioning, kitchen management and complete discretion, in London or abroad.</p>
+      </div>
+      <div class="card rv d1">
+        <div class="num">02</div>
+        <h3>Private Dinners</h3>
+        <p>Bespoke dinner parties and intimate entertaining at your residence — from menu design to table service, formal or informal.</p>
+      </div>
+      <div class="card rv d2">
+        <div class="num">03</div>
+        <h3>Events &amp; Receptions</h3>
+        <p>Event catering for up to 100+ guests — canapés, buffets and seated dinners, with trusted teams assembled to scale.</p>
+      </div>
+    </div>
+    <div class="note rv d3"><b>Every engagement includes:</b> allergen &amp; specialist diets expertise, children's nutrition, supplier sourcing, and HACCP-compliant kitchen standards.</div>
+  </div>
+</section>
+
+<section class="pad cuisines">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker rv">Cuisines</div>
+      <h2 class="title rv d1">Five culinary traditions, <em>one standard.</em></h2>
+    </div>
+    <div class="cui-list">
+      <div class="cui rv"><div class="name">Mediterranean <em>&amp; French</em></div><div class="desc">The foundation — Provence, the Riviera, and classical French technique.</div></div>
+      <div class="cui rv"><div class="name">Asian <em>Fusion</em></div><div class="desc">Contemporary crossings of flavour, refined for the private table.</div></div>
+      <div class="cui rv"><div class="name">Japanese</div><div class="desc">Precision, seasonality and restraint.</div></div>
+      <div class="cui rv"><div class="name">Indian</div><div class="desc">Depth of spice, balanced with lightness.</div></div>
+      <div class="cui rv"><div class="name">Spanish</div><div class="desc">From Tarragona's coast — honest produce, bold simplicity.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="wrap menus-grid">
+    <div class="menu-card rv">
+      <div class="mc-k">Sample Menu — Spring</div>
+      <h4>Dinner for eight</h4>
+      <div class="it">Ceviche of wild sea bass</div>
+      <div class="sub">yuzu, radish, coriander flowers</div>
+      <div class="sep"></div>
+      <div class="it">Rack of Provence lamb</div>
+      <div class="sub">smoked aubergine, black garlic jus</div>
+      <div class="sep"></div>
+      <div class="it">Vanilla bean panna cotta</div>
+      <div class="sub">poached rhubarb, almond tuile</div>
+    </div>
+    <div>
+      <div class="kicker rv">Menus</div>
+      <h2 class="title rv d1">No two menus <em>are ever the same.</em></h2>
+      <p class="rv d2">Each menu is composed for the occasion — around the season, your guests, and every dietary requirement at the table. Sample menus give a sense of style; the final menu is always yours.</p>
+      <a class="btn btn-line rv d3" href="#">Explore sample menus</a>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker rv">Gallery</div>
+      <h2 class="title rv d1">From the <em>kitchen.</em></h2>
+    </div>
+    <div class="gal">
+      <div class="ph rv" data-label="Photo — Plat signature"></div>
+      <div class="ph rv d1" data-label="Photo — En cuisine"></div>
+      <div class="ph rv d2" data-label="Photo — Table dressée"></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad testi">
+  <div class="wrap">
+    <div class="kicker rv">Testimonial</div>
+    <div class="quote rv d1">“Témoignage à venir — espace prévu pour deux ou trois citations de clients ou d'employeurs, si ton père peut en obtenir.”</div>
+    <div class="who rv d2">Principal — Knightsbridge household</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="kicker rv">Enquiries</div>
+    <h2 class="rv d1">Let's compose <em>your table.</em></h2>
+    <p class="rv d2">For private dinners, events or household service — share your occasion, dates and any dietary requirements, and Michel will respond personally.</p>
+    <a class="btn btn-ivory rv d3" href="#">Start an enquiry</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="logo serif">Michel Clairet</div>
+    <div>michelclairet@hotmail.com &nbsp;·&nbsp; 07502 262821 &nbsp;·&nbsp; London, UK</div>
+    <div>© 2026 — Private Head Chef</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.rv:not(.on)').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
