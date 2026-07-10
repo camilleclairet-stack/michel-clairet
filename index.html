@@ -13,10 +13,10 @@
     --season:#E0B07E;
     --ph-a:#5C4A33; --ph-b:#413526; --ph-c:#2B2318;
   }
-  body.spring { --season:#9DB380; --ph-a:#4A5538; --ph-b:#363F2A; --ph-c:#232A1B; }
-  body.summer { --season:#E0B07E; --ph-a:#5C4A33; --ph-b:#413526; --ph-c:#2B2318; }
-  body.autumn { --season:#C97A4A; --ph-a:#5C3E28; --ph-b:#43301F; --ph-c:#2B2015; }
-  body.winter { --season:#97AEBB; --ph-a:#3A454C; --ph-b:#2C353B; --ph-c:#1E2529; }
+  body.spring { --season:#9DB380; }
+  body.summer { --season:#E0B07E; }
+  body.autumn { --season:#C97A4A; }
+  body.winter { --season:#97AEBB; }
 
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
@@ -26,50 +26,54 @@
   .script { font-family:'Alex Brush',cursive; font-weight:400; }
   .caps { font-size:10px; letter-spacing:4px; text-transform:uppercase; font-weight:600; }
 
-  .flank { display:inline-flex; align-items:center; gap:14px; }
-  .flank::before { content:""; height:1px; width:34px; background:var(--gold); }
-
   .ul { position:relative; padding-bottom:5px; }
   .ul::after { content:""; position:absolute; left:0; bottom:0; height:1px; width:100%; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.2,.6,.2,1); }
   .ul:hover::after { transform:scaleX(1); }
 
-  .ph { background:linear-gradient(155deg,var(--ph-a),var(--ph-b) 55%,var(--ph-c)); position:relative; transition:background 1s ease; }
-  .ph::after { content:attr(data-label); position:absolute; bottom:12px; left:14px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(240,231,216,.35); font-weight:600; }
+  .pic { background:linear-gradient(155deg,var(--ph-a),var(--ph-b) 55%,var(--ph-c)); position:relative; overflow:hidden; }
+  .pic img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s ease; }
+  .pic:hover img { transform:scale(1.03); }
 
   .fade { opacity:0; transition:opacity 1.2s ease; }
   .fade.on { opacity:1; }
 
+  .btn { display:inline-block; background:var(--gold); color:#1A130D; font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:700; padding:17px 34px; transition:background .3s; }
+  .btn:hover { background:var(--gold-2); }
+
   /* ---------- top bar ---------- */
-  header.top { position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(23,17,12,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--rule); }
+  header.top { position:fixed; top:0; left:0; right:0; z-index:60; transition:background .4s, border-color .4s; border-bottom:1px solid transparent; }
+  header.top.solid { background:rgba(23,17,12,.92); backdrop-filter:blur(10px); border-bottom-color:var(--rule); }
   .top-in { display:flex; align-items:center; justify-content:space-between; padding:15px 48px; }
   .brand { display:flex; align-items:baseline; gap:12px; }
   .brand .script { font-size:30px; color:var(--gold-2); }
   .brand .caps { letter-spacing:5px; font-weight:400; }
   nav.menu { display:flex; gap:34px; }
-  nav.menu a { font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:400; color:var(--soft); transition:color .3s; }
+  nav.menu a { font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:400; color:rgba(240,231,216,.75); transition:color .3s; }
   nav.menu a:hover { color:var(--cream); }
   .top .enquire { font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:600; color:var(--gold-2); }
 
-  /* ---------- hero ---------- */
-  .hero { max-width:1320px; margin:0 auto; padding:170px 48px 110px; display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:70px; align-items:center; }
-  .hero .note { color:var(--season); font-size:36px; transition:color .6s; display:block; margin-bottom:18px; }
-  .hero h1 { font-size:clamp(46px,5.6vw,82px); line-height:1.04; }
+  /* ---------- hero : full bleed photo ---------- */
+  .hero { position:relative; min-height:100vh; display:flex; align-items:flex-end; }
+  .hero .bg { position:absolute; inset:0; }
+  .hero .bg img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hero .veil { position:absolute; inset:0; background:linear-gradient(180deg, rgba(23,17,12,.5) 0%, rgba(23,17,12,.15) 40%, rgba(23,17,12,.88) 88%, var(--bg) 100%); }
+  .hero .in { position:relative; width:100%; max-width:1320px; margin:0 auto; padding:0 48px 90px; display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap; }
+  .hero .note { color:var(--season); font-size:34px; display:block; margin-bottom:14px; transition:color .6s; }
+  .hero h1 { font-size:clamp(42px,5vw,74px); line-height:1.05; max-width:760px; }
   .hero h1 .g { color:var(--gold-2); }
-  .hero p { color:var(--soft); max-width:460px; margin-top:30px; }
-  .hero .actions { margin-top:38px; display:flex; align-items:center; gap:30px; }
-  .btn { display:inline-block; background:var(--gold); color:#1A130D; font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:700; padding:17px 34px; transition:background .3s; }
-  .btn:hover { background:var(--gold-2); }
-  .hero .portrait { aspect-ratio:3/4; border:1px solid var(--rule); outline:1px solid var(--rule); outline-offset:10px; }
+  .hero .side { max-width:330px; padding-bottom:10px; }
+  .hero .side p { color:rgba(240,231,216,.85); font-size:14px; }
+  .hero .side .actions { margin-top:24px; display:flex; align-items:center; gap:26px; }
 
   /* ---------- one line ---------- */
-  .line { border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+  .line { border-bottom:1px solid var(--rule); }
   .line .in { max-width:1320px; margin:0 auto; padding:64px 48px; display:flex; align-items:baseline; justify-content:space-between; gap:40px; flex-wrap:wrap; }
   .line .txt { font-family:'Fraunces',serif; font-weight:400; font-variation-settings:"SOFT" 100, "WONK" 1; font-size:clamp(20px,2.3vw,29px); line-height:1.55; max-width:760px; }
   .line .txt .g { color:var(--gold-2); }
   .line .script { font-size:30px; color:var(--soft); }
 
-  /* ---------- services, short index ---------- */
-  .services { max-width:1320px; margin:0 auto; padding:120px 48px 110px; }
+  /* ---------- services ---------- */
+  .services { max-width:1320px; margin:0 auto; padding:110px 48px 100px; }
   .services .head { display:flex; justify-content:space-between; align-items:baseline; gap:30px; flex-wrap:wrap; margin-bottom:40px; }
   .services h2 { font-size:clamp(30px,3.4vw,48px); line-height:1.1; }
   .services .head a { color:var(--gold-2); font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:600; }
@@ -82,11 +86,28 @@
   .srow .ar { color:var(--gold-2); font-size:16px; transition:transform .3s; }
   .srow:hover .ar { transform:translateX(6px); }
 
+  /* ---------- mosaic ---------- */
+  .mosaic { max-width:1320px; margin:0 auto; padding:0 48px 110px; display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:52px; gap:18px; }
+  .mosaic .cap { grid-column:1/4; grid-row:1/3; align-self:end; }
+  .mosaic .cap h2 { font-size:clamp(26px,2.8vw,38px); line-height:1.12; margin-top:12px; }
+  .mosaic .cap a { display:inline-block; margin-top:18px; color:var(--gold-2); font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:600; }
+  .m1 { grid-column:4/9; grid-row:1/7; }
+  .m2 { grid-column:9/13; grid-row:2/6; }
+  .m3 { grid-column:1/5; grid-row:3/8; }
+  .m4 { grid-column:5/9; grid-row:7/12; }
+  .m5 { grid-column:9/13; grid-row:6/11; }
+  .quote-tile { grid-column:1/5; grid-row:8/12; background:var(--bg2); border:1px solid var(--rule); display:flex; flex-direction:column; justify-content:center; padding:34px; }
+  .quote-tile .q { font-family:'Fraunces',serif; font-weight:400; font-variation-settings:"SOFT" 100, "WONK" 1; font-size:clamp(16px,1.6vw,21px); line-height:1.55; }
+  .quote-tile .w { margin-top:16px; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--soft); font-weight:600; }
+  .mosaic .legend { grid-column:5/13; grid-row:12/13; font-size:11px; color:var(--soft); align-self:center; }
+
   /* ---------- menu paper ---------- */
   .season-menu { background:var(--bg2); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
-  .season-menu .grid { max-width:1320px; margin:0 auto; padding:120px 48px; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:80px; align-items:center; }
+  .season-menu .grid { max-width:1320px; margin:0 auto; padding:110px 48px; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:80px; align-items:center; }
   .season-menu h2 { font-size:clamp(30px,3.4vw,48px); line-height:1.1; margin-top:16px; }
   .season-menu .lead { color:var(--soft); margin-top:18px; max-width:400px; }
+  .flank { display:inline-flex; align-items:center; gap:14px; }
+  .flank::before { content:""; height:1px; width:34px; background:var(--gold); }
   .season-list { list-style:none; margin-top:34px; border-top:1px solid var(--rule); }
   .season-list li { border-bottom:1px solid var(--rule); }
   .season-list button { width:100%; display:flex; justify-content:space-between; align-items:baseline; background:none; border:none; cursor:pointer; font-family:'Nunito Sans',sans-serif; padding:15px 4px; transition:padding-left .3s; }
@@ -104,15 +125,12 @@
   .paper .note { font-size:12px; color:#6E675D; margin-top:4px; }
   .paper .end { margin-top:30px; font-size:11px; color:#6E675D; }
 
-  /* ---------- photos strip ---------- */
-  .strip { max-width:1320px; margin:0 auto; padding:120px 48px 0; display:grid; grid-template-columns:minmax(0,3fr) minmax(0,5fr) minmax(0,4fr); gap:22px; align-items:end; }
-  .strip .cap h2 { font-size:clamp(26px,2.8vw,38px); line-height:1.12; margin-top:12px; }
-  .strip .cap a { display:inline-block; margin-top:22px; color:var(--gold-2); font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:600; }
-  .strip .s1 { aspect-ratio:4/3; }
-  .strip .s2 { aspect-ratio:3/4; max-height:340px; }
-
   /* ---------- contact ---------- */
-  .contact { max-width:1100px; margin:0 auto; padding:130px 48px; display:grid; grid-template-columns:minmax(0,4fr) 1px minmax(0,7fr); align-items:center; }
+  .contact { position:relative; }
+  .contact .bg { position:absolute; inset:0; }
+  .contact .bg img { width:100%; height:100%; object-fit:cover; display:block; }
+  .contact .veil { position:absolute; inset:0; background:rgba(23,17,12,.9); }
+  .contact .grid { position:relative; max-width:1100px; margin:0 auto; padding:120px 48px; display:grid; grid-template-columns:minmax(0,4fr) 1px minmax(0,7fr); align-items:center; }
   .contact .left { text-align:center; padding-right:56px; }
   .contact .left .script { font-size:74px; color:var(--gold-2); display:block; line-height:1; }
   .contact .left .caps { color:var(--soft); font-weight:400; display:block; margin-top:18px; letter-spacing:5px; line-height:2.4; }
@@ -134,14 +152,15 @@
   @media (max-width:1000px) {
     .top-in { padding:14px 24px; }
     nav.menu { display:none; }
-    .hero { grid-template-columns:1fr; padding:140px 24px 80px; gap:44px; }
-    .line .in, .services, .season-menu .grid, .strip { padding-left:24px; padding-right:24px; }
-    .season-menu .grid { grid-template-columns:1fr; gap:50px; padding-top:90px; padding-bottom:90px; }
+    .hero .in { padding:0 24px 60px; }
+    .line .in, .services, .season-menu .grid { padding-left:24px; padding-right:24px; }
+    .season-menu .grid { grid-template-columns:1fr; gap:50px; padding-top:80px; padding-bottom:80px; }
     .srow { grid-template-columns:44px 1fr; grid-template-rows:auto auto; }
     .srow .ds { grid-column:2; }
     .srow .ar { display:none; }
-    .strip { grid-template-columns:1fr; }
-    .contact { grid-template-columns:1fr; gap:44px; padding:90px 24px; }
+    .mosaic { display:flex; flex-direction:column; padding:0 24px 80px; }
+    .mosaic .pic { aspect-ratio:4/3; }
+    .contact .grid { grid-template-columns:1fr; gap:44px; padding:80px 24px; }
     .contact .left { padding-right:0; }
     .contact .right { padding-left:0; }
     .contact .vrule { display:none; }
@@ -150,7 +169,7 @@
 </head>
 <body>
 
-<header class="top">
+<header class="top" id="topbar">
   <div class="top-in">
     <a class="brand" href="#">
       <span class="script">MC</span>
@@ -165,16 +184,21 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div>
-    <span class="note script" id="season-script">Summer, at the table</span>
-    <h1 class="fr">Cooking at your table, <span class="g">thirty years in the making.</span></h1>
-    <p>Michel Clairet has cooked in three Michelin star kitchens, on the Cannes seafront and for London families since 2008. Today he brings that experience to private homes, for tables of four as gladly as for parties of a hundred.</p>
-    <div class="actions">
-      <a class="btn" href="#">Enquire</a>
-      <a class="ul caps" style="color:var(--gold-2);" href="#">See the menus</a>
+  <div class="bg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2000&auto=format&fit=crop" alt="" onerror="this.remove()"></div>
+  <div class="veil"></div>
+  <div class="in">
+    <div>
+      <span class="note script" id="season-script">Summer, at the table</span>
+      <h1 class="fr">Cooking at your table, <span class="g">thirty years in the making.</span></h1>
+    </div>
+    <div class="side">
+      <p>Three Michelin star kitchens, the Cannes seafront, and London families since 2008. Michel cooks for tables of four as gladly as for parties of a hundred.</p>
+      <div class="actions">
+        <a class="btn" href="#">Enquire</a>
+        <a class="ul caps" style="color:var(--gold-2);" href="#">See the menus</a>
+      </div>
     </div>
   </div>
-  <div class="ph portrait fade on" data-label="Photo, portrait"></div>
 </section>
 
 <!-- ONE LINE -->
@@ -217,6 +241,25 @@
   </div>
 </section>
 
+<!-- MOSAIC -->
+<section class="mosaic">
+  <div class="cap">
+    <span class="caps flank" style="color:var(--gold-2);">Gallery</span>
+    <h2 class="fr">From the kitchen</h2>
+    <a class="ul" href="#">See the gallery</a>
+  </div>
+  <div class="pic m1 fade"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1400&auto=format&fit=crop" alt="Plated dish" onerror="this.remove()"></div>
+  <div class="pic m2 fade"><img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1200&auto=format&fit=crop" alt="Hands in the kitchen" onerror="this.remove()"></div>
+  <div class="pic m3 fade"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" alt="Roast dish" onerror="this.remove()"></div>
+  <div class="pic m4 fade"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop" alt="Fine dining plate" onerror="this.remove()"></div>
+  <div class="pic m5 fade"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=1200&auto=format&fit=crop" alt="Seasonal bowl" onerror="this.remove()"></div>
+  <div class="quote-tile fade">
+    <p class="q">Témoignage à venir. Un mot de clients ou de familles, recueilli par Michel.</p>
+    <span class="w">A London family</span>
+  </div>
+  <p class="legend">Photos temporaires, en attente des photographies de Michel.</p>
+</section>
+
 <!-- SEASONAL MENU -->
 <section class="season-menu">
   <div class="grid">
@@ -245,32 +288,25 @@
   </div>
 </section>
 
-<!-- PHOTO STRIP -->
-<section class="strip">
-  <div class="cap">
-    <span class="caps flank" style="color:var(--gold-2);">Gallery</span>
-    <h2 class="fr">From the kitchen</h2>
-    <a class="ul" href="#">See the gallery</a>
-  </div>
-  <div class="ph s1 fade" data-label="Photo, plat de saison"></div>
-  <div class="ph s2 fade" data-label="Photo, en cuisine"></div>
-</section>
-
 <!-- CONTACT -->
 <section class="contact">
-  <div class="left fade">
-    <span class="script">MC</span>
-    <span class="caps">Experience<br>Passion<br>Perfection</span>
-  </div>
-  <div class="vrule"></div>
-  <div class="right">
-    <h2 class="fr">Tell him about <span class="g">your table.</span></h2>
-    <p>The occasion, the date, the number of guests, any allergies or preferences. Michel reads and answers every enquiry himself.</p>
-    <div class="co">
-      michelclairet@hotmail.com<br>
-      07502 262821, London
+  <div class="bg"><img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?q=80&w=2000&auto=format&fit=crop" alt="" onerror="this.remove()"></div>
+  <div class="veil"></div>
+  <div class="grid">
+    <div class="left fade">
+      <span class="script">MC</span>
+      <span class="caps">Experience<br>Passion<br>Perfection</span>
     </div>
-    <a class="btn" href="#">Start an enquiry</a>
+    <div class="vrule"></div>
+    <div class="right">
+      <h2 class="fr">Tell him about <span class="g">your table.</span></h2>
+      <p>The occasion, the date, the number of guests, any allergies or preferences. Michel reads and answers every enquiry himself.</p>
+      <div class="co">
+        michelclairet@hotmail.com<br>
+        07502 262821, London
+      </div>
+      <a class="btn" href="#">Start an enquiry</a>
+    </div>
   </div>
 </section>
 
@@ -291,8 +327,11 @@
 <script>
   const io = new IntersectionObserver((es) => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
-  }, { threshold: 0.18 });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.fade:not(.on)').forEach(el => io.observe(el));
+
+  const bar = document.getElementById('topbar');
+  addEventListener('scroll', () => bar.classList.toggle('solid', scrollY > 40), { passive:true });
 
   const MENUS = {
     spring: { label:"Spring sample menu", word:"Spring, at the table", items:[
